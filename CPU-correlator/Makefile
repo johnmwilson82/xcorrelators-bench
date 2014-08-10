@@ -27,7 +27,7 @@ fpuspinner.o:   fpuspinner.cc
 		$(CXX) -S $(CFLAGS) ${CPPFLAGS} -c $< -o $@
 
 correlator:	$(CC_OBJECTS)
-		$(CXX) $(LDFLAGS) $^ -o $@
+		$(CXX) $^ $(LDFLAGS) -o $@
 
 s:		$(CC_AS)
 

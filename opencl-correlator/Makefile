@@ -1,8 +1,16 @@
-CC		= g++-4.3
+CC		= g++
+
+#Intel OpenCL, 64 bit GPU
+#CC_FLAGS	= -I/usr/include -O3 -msse3 -Wall -march=nocona -m64 -mfpmath=sse -g
+#CC_LINK_FLAGS   = -m64 -L/opt/intel/opencl-1.2-4.4.0.117/lib64 -lpthread -lOpenCL
+
+#Beignet , 64 bit GPU
+CC_FLAGS        = -I/usr/include -O3 -msse3 -Wall -march=nocona -m64 -mfpmath=sse -g
+CC_LINK_FLAGS   = -m64 -L/usr/lib -lpthread -lcl
 
 #AMD, 64 bit GPU
-CC_FLAGS	= -I$(ATISTREAMSDKROOT)/include -O3 -msse3 -Wall -march=nocona -m64 -mfpmath=sse -g
-CC_LINK_FLAGS   = -m64 -laticalcl -laticalrt -L$(ATISTREAMSDKROOT)/lib/x86_64 -lOpenCL
+#CC_FLAGS	= -I$(ATISTREAMSDKROOT)/include -O3 -msse3 -Wall -march=nocona -m64 -mfpmath=sse -g
+#CC_LINK_FLAGS   = -m64 -laticalcl -laticalrt -L$(ATISTREAMSDKROOT)/lib/x86_64 -lOpenCL
 
 # AMD, 64 bit CPU
 #CC_FLAGS	= -I$(ATISTREAMSDKROOT)/include -O3 -msse3 -Wall -march=nocona -m64 -mfpmath=sse -g
@@ -31,7 +39,7 @@ CC_AS		= $(CC_SOURCES:%.cc=%.s)
 		$(CC) -S $(CC_FLAGS) -c $< -o $@
 
 correlator:	$(CC_OBJECTS)
-		$(CC) $(CC_LINK_FLAGS) $^ -o $@
+		$(CC) $^ -o $@ $(CC_LINK_FLAGS) 
 
 s:		$(CC_AS)
 #		$(CC) $(CC_FLAGS) -S cpu_correlator_1x1.cc -o cpu_correlator_1x1.s
